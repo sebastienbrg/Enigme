@@ -1,13 +1,11 @@
 import React from 'react';
 import Drawer from 'material-ui/Drawer';
-
 import IconButton from 'material-ui/IconButton';
-
 import {List, ListItem} from 'material-ui/List';
-
 import Subheader from 'material-ui/Subheader';
 import {Toolbar, ToolbarGroup, ToolbarSeparator, ToolbarTitle} from 'material-ui/Toolbar';
-import CloseMenu from 'material-ui/svg-icons/navigation/chevron-left';
+
+import enigmeStore from './EnigmeStore.js';
 
 
 export default class SideMenu extends React.Component {
@@ -16,11 +14,8 @@ export default class SideMenu extends React.Component {
   {
     super();
     this.state ={
-     list : [
-     {name: "test1"},
-      {name: "test2"}
-      ],
-       open:true};
+     list : enigmeStore.enigmes
+   };
   }
 
 
@@ -33,20 +28,11 @@ export default class SideMenu extends React.Component {
   {
     
   }
-  handleToggle() 
-  {
-    this.setState({open: !this.state.open});
-  }
   
-  handleClose()
-  {
-    this.setState({open: false});
-  } 
   elementClicked(item)
   {
-
+    enigmeStore.setCurrentEnigme(item);
   }
-
   getListContent()
   {    
      return this.state.list.map((item) => {
@@ -60,29 +46,17 @@ export default class SideMenu extends React.Component {
               />
               );
       });
-
-    
   }
 
   render() {
     let list = this.getListContent();
+    
     return (
-      
-        <Drawer
-          
+        <Drawer          
           docked={true}
-          open={this.state.open}
-          onRequestChange={(open) => this.setState({open})}
+          open={true}
+          width = {250}
         >
-        <Toolbar>
-          <ToolbarGroup firstChild={true}>
-          </ToolbarGroup>
-          <ToolbarGroup>
-          <IconButton onClick={this.handleClose.bind(this)}>
-           <CloseMenu />
-           </IconButton>
-          </ToolbarGroup>
-        </Toolbar>
         <Subheader>Mes petites enigmes</Subheader>
         {list}
         <Subheader>Ma grosse enigme</Subheader>
