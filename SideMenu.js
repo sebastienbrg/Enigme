@@ -16,7 +16,8 @@ export default class SideMenu extends React.Component {
     super();
     this.state ={
      list : enigmeStore.enigmes,
-     currentIndex:enigmeStore.currentEnigme.index
+     currentIndex:enigmeStore.currentEnigme.index,
+     showBigEnigme : enigmeStore.showBigEnigme
    };
   }
 
@@ -38,7 +39,14 @@ export default class SideMenu extends React.Component {
   }
   setEnigmeContent(enigme)
   {
-    this.setState({currentIndex: enigmeStore.currentEnigme.index})
+    if(enigmeStore.showBigEnigme)
+    {
+      this.setState({currentIndex: -1, showBigEnigme: true})  
+    }
+    else
+    {
+      this.setState({currentIndex: enigmeStore.currentEnigme.index, showBigEnigme: false})
+    }
   }
   getListContent()
   {    
@@ -48,7 +56,7 @@ export default class SideMenu extends React.Component {
               primaryText={item.name}            
               initiallyOpen={true}
               key={item.name}
-              leftIcon = {((item.index == enigmeStore.currentEnigme.index) ? <CurrentIcon/> : null)}
+              leftIcon = {((item.index == this.state.currentIndex) ? <CurrentIcon/> : null)}
               rightIcon={ item.won ? <ActionInfo /> : null}
               primaryTogglesNestedList={true}
               onClick={this.elementClicked.bind(this, item)}
@@ -74,7 +82,8 @@ export default class SideMenu extends React.Component {
               initiallyOpen={true}
               key="Grosse enigme"
               primaryTogglesNestedList={true}
-              onClick={this.elementClicked.bind(this, {name:"Grosse Enigme"})}
+              leftIcon = {(this.state.showBigEnigme) ? <CurrentIcon/> : null}
+              onClick={this.elementClicked.bind(this, {name:"bigEnigme"})}
               />
         </Drawer>
       

@@ -11,7 +11,7 @@ export default class EnigmePresenter extends Component {
 	constructor()
 	{
 		super();
-		this.state = { enigme:enigmeStore.currentEnigme, resp:"", errorText:"", errorStyle:{}}
+		this.state = { enigme:enigmeStore.currentEnigme, resp:"", errorText:"", errorStyle:{}, display: enigmeStore.showBigEnigme ? 'none' : 'inline-block'}
 	}
 	componentWillMount() 
 	  {
@@ -22,8 +22,15 @@ export default class EnigmePresenter extends Component {
 	    enigmeStore.removeListener("CURRENT_ENIGME_CHANGED", this.setEnigmeContent.bind(this));
 	  }
 
-	  setEnigmeContent(enigme)
+	  setEnigmeContent()
 	  {
+	  	if(enigmeStore.showBigEnigme)
+	  	{
+	  		this.setState({display:'none'});
+	  		return;
+	  	}
+	  	
+	  	let enigme = enigmeStore.currentEnigme;
 	  	console.log("setting enigme", enigme)
 	  	let resp = "";
 	  	let errorText = "";
@@ -34,7 +41,7 @@ export default class EnigmePresenter extends Component {
 	  		resp = enigme.response;
 	  		errorText = "Gagné !";
 	  	}
-  		this.setState({enigme, resp, errorText, errorStyle});
+  		this.setState({enigme, resp, errorText, errorStyle, display:  'inline-block'});
 	  }
 	  handleChange(e)
 	  {
@@ -63,7 +70,7 @@ export default class EnigmePresenter extends Component {
   marginLeft: 270,
   padding:"2% 5%",
   textAlign: 'left',
-  display: 'inline-block'};
+  display: this.state.display};
   const styleTitle = { height: "10%"}
   const styleText = { height: "70%"}
   

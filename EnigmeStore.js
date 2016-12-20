@@ -26,20 +26,27 @@ class EnigmeStore extends EventEmitter {
 		this.currentEnigme = this.enigmes[0];
 		
 		this.loadFromStorage();
+
+this.showBigEnigme = true;
+
 	}
 	loadFromStorage()
 	{
 		let en = localStorage.getItem("enigmes");
-		en.split(",").forEach((enigmeWon, index) => {
-			this.enigmes[index].won = (enigmeWon == "true");
-		});
-		this.emit("WON_LETTERS_CHANGED");
+		if(en)
+		{
+			en.split(",").forEach((enigmeWon, index) => {
+				this.enigmes[index].won = (enigmeWon == "true");
+			});
+			this.emit("WON_LETTERS_CHANGED");
+			
+		}
 	}
 	enigmeWon()
 	{
 		this.currentEnigme.won = true;
 		this.emit("WON_LETTERS_CHANGED");
-		this.emit("CURRENT_ENIGME_CHANGED", this.currentEnigme);
+		this.emit("CURRENT_ENIGME_CHANGED");
 		this.saveToStorage();
 	}
 	saveToStorage()
@@ -48,11 +55,21 @@ class EnigmeStore extends EventEmitter {
 			return enigme.won;
 		}).join(","));
 	}
-
+	allWon()
+	{
+		return this.enigmes.every((en) => {return en.won});
+	}
 	setCurrentEnigme(enigme)
 	{
-		this.currentEnigme = enigme;
-		this.emit("CURRENT_ENIGME_CHANGED", enigme);
+		if(enigme.name === "bigEnigme"){
+			this.showBigEnigme = true;
+		}
+		else
+		{
+			this.showBigEnigme = false;
+			this.currentEnigme = enigme;
+		}
+		this.emit("CURRENT_ENIGME_CHANGED");
 	}
 	getFirst()
 	{

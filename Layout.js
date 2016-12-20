@@ -3,6 +3,7 @@ import SideMenu from "./SideMenu"
 import MenuSvg from 'material-ui/svg-icons/navigation/menu';
 import EnigmePresenter from "./enigmePresenter";
 import LetterList from "./letterList"
+import BigEnigme from "./bigEnigme";
 
 export default class Layout extends React.Component
 {
@@ -14,7 +15,8 @@ export default class Layout extends React.Component
 	
 	render(){		
 		return (
-			<div>				
+			<div>		
+				<BigEnigme />		
 				<SideMenu/>
 				<EnigmePresenter/>
 				<LetterList />
