@@ -10,7 +10,7 @@ class EnigmeStore extends EventEmitter {
 				name : "test1",
 				title :"Enigme numero 1",
 				content : "Mon Premier est ... ",
-				response : "bla",
+				response : "rendez vous",
 				won : false,
 				index : 1
 			},
@@ -18,16 +18,17 @@ class EnigmeStore extends EventEmitter {
 				name: "test2",
 				title:"Enigme numero 2",
 				content: "Mon Premier est ... ",
-				response : "blou",
+				response : "le vingt huit janvier",
 				won : false,
 				index:2
 			}
 		];
 		this.currentEnigme = this.enigmes[0];
-		
+		this.phrases = ["rendez vous le", "vingt huit janvier"]
+		this.wonPhrases = "";
 		this.loadFromStorage();
 
-this.showBigEnigme = true;
+		this.showBigEnigme = true;
 
 	}
 	loadFromStorage()
@@ -41,6 +42,11 @@ this.showBigEnigme = true;
 			this.emit("WON_LETTERS_CHANGED");
 			
 		}
+	}
+	addWonPhrase(phrases)
+	{
+		this.wonPhrases += phrases;
+		this.emit("WON_PRASES_CHANGED");
 	}
 	enigmeWon()
 	{
@@ -58,6 +64,11 @@ this.showBigEnigme = true;
 	allWon()
 	{
 		return this.enigmes.every((en) => {return en.won});
+	}
+	setCurrentPhrase(phrase)
+	{
+		this.currentPhrase = phrase;
+		this.emit("CURRENT_PHRASE_CHANGED");
 	}
 	setCurrentEnigme(enigme)
 	{
@@ -81,7 +92,7 @@ this.showBigEnigme = true;
 		this.enigmes.forEach( (enigme) => {
 			if(enigme.won)
 			{
-				letters = letters.concat(enigme.response.split(""));
+				letters = letters.concat(enigme.response.replace(/\s/g,"").split(""));
 			}
 		})
 		return letters;
