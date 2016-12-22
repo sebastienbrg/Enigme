@@ -21,8 +21,8 @@ export default class BigEnigme extends Component {
 	
 	getTextFields()
 	{
-		return enigmeStore.phrases.map((phrase) => {
-			return (<PhraseShower phrase={phrase} id={phrase} />);
+		return enigmeStore.phrases.map((phrase, index) => {
+			return (<PhraseShower phrase={phrase} key={phrase} id={phrase} index={index}/>);
 		});		
 				    
 	}

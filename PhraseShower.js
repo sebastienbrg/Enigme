@@ -8,7 +8,7 @@ export default class PhraseShower extends Component {
 	{
 		super();
 		this.state = {
-						won:false,
+						won: false,
 						typed:""
 						}
 	}
@@ -40,13 +40,19 @@ export default class PhraseShower extends Component {
 			if(inputPhrase === sanitPhrase)
 			{
 				this.setState({won:true});
-				enigmeStore.addWonPhrase(sanitPhrase);
+				enigmeStore.addWonPhrase(sanitPhrase, this.props.index);
 			}
 			console.info("setting typed to ", e.target.value)
 			this.setState({typed:e.target.value});
 
-		}
-		
+		}	
+	}
+	componentDidMount() {
+		const won = (enigmeStore.wonPhrasesIndexes.indexOf(this.props.index) !== -1)
+		let typed = "";
+		if(won)
+			typed = this.props.phrase
+		this.setState({ won , typed });
 	}
 
 	getPhraseMasked(phrase)
@@ -75,12 +81,12 @@ export default class PhraseShower extends Component {
 	}
 
 	render() {
+			
 			const phrase = this.props.phrase;
 			console.log("rendering " + phrase);
 			const Hintext = this.state.won?"":"Ma réponse";
 			const floatingLabelText = this.state.won? "": this.getPhraseMasked(phrase);
 			const inputStyle = this.state.won?{color:"green"}:{}
-
 			return (<TextField 
 				id= {phrase}
 				floatingLabelText={floatingLabelText}

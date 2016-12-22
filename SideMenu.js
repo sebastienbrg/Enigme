@@ -56,7 +56,7 @@ export default class SideMenu extends React.Component {
               primaryText={item.name}            
               initiallyOpen={true}
               key={item.name}
-              leftIcon = {((item.index == this.state.currentIndex) ? <CurrentIcon/> : null)}
+              leftIcon = {(((!this.state.showBigEnigme) && item.index == this.state.currentIndex) ? <CurrentIcon/> : null)}
               rightIcon={ item.won ? <ActionInfo /> : null}
               primaryTogglesNestedList={true}
               onClick={this.elementClicked.bind(this, item)}

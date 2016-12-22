@@ -49,6 +49,7 @@ export default class LetterList extends Component {
 			else
 				letterStatuses.push(" ");
 		});
+		console.log(letterStatuses.join(","));
 		
 		this.setState({letterStatuses:letterStatuses});
 		
@@ -65,6 +66,7 @@ export default class LetterList extends Component {
 			const used = (this.state.letterStatuses[index] !== " ");
 			
 			const secondary = used && this.state.letterStatuses[index] === "W";
+			const style = {};
 			return (
 				<FloatingActionButton key={index} mini={true} disabled = {!used } secondary={secondary}>
 				{letter}			
