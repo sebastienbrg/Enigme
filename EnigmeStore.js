@@ -1,36 +1,21 @@
 import {EventEmitter} from "events";
+import enigmeProvider from "./responses";  
 class EnigmeStore extends EventEmitter {
 
 	constructor()
 	{
 		super();
-		this.enigmes = 
-		[
-			{
-				name : "test1",
-				title :"Enigme numero 1",
-				content : "Mon Premier est ... ",
-				response : "rendez vous",
-				won : false,
-				index : 1
-			},
-			{
-				name: "test2",
-				title:"Enigme numero 2",
-				content: "Mon Premier est ... ",
-				response : "le vingt huit janvier",
-				won : false,
-				index:2
-			}
-		];
+		this.enigmes = enigmeProvider.enigmes;
+		
 		this.currentEnigme = this.enigmes[0];
-		this.phrases = ["rendez vous le", "vingt huit", "janvier"]
+		this.phrases = enigmeProvider.phrases;
+		
 		this.wonPhrases = "";
 		this.wonPhrasesIndexes = [];
 //this.saveToStorage();
 		this.loadFromStorage();
 
-		this.showBigEnigme = false;
+		this.showBigEnigme = this.allWon();
 
 	}
 	loadFromStorage()

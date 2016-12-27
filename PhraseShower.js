@@ -15,7 +15,7 @@ export default class PhraseShower extends Component {
 
 	isValidInput(inputPhrase)
 	{
-		let lettersAvailable = this.props.phrase.replace(/\s/g,"").split("");
+		let lettersAvailable = this.props.phrase.replace(/\s/g,"").toLowerCase().split("");
 		console.log("lettersAvailable",lettersAvailable)
 		return inputPhrase.split("").every((letter) => {
 			const index = lettersAvailable.indexOf(letter);
@@ -41,11 +41,18 @@ export default class PhraseShower extends Component {
 			{
 				this.setState({won:true});
 				enigmeStore.addWonPhrase(sanitPhrase, this.props.index);
+				console.info("setting typed to ", this.props.phrase)
+				this.setState({typed:this.props.phrase});
+				}
+			else
+			{
+				console.info("setting typed to ", e.target.value)
+				this.setState({typed:e.target.value});
+				
 			}
-			console.info("setting typed to ", e.target.value)
-			this.setState({typed:e.target.value});
 
 		}	
+		enigmeStore.setCurrentPhrase(this.props.phrase);
 	}
 	componentDidMount() {
 		const won = (enigmeStore.wonPhrasesIndexes.indexOf(this.props.index) !== -1)
@@ -57,7 +64,7 @@ export default class PhraseShower extends Component {
 
 	getPhraseMasked(phrase)
 	{
-		return phrase.replace(/[a-z]/g,"X");
+		return phrase.replace(/[a-zA-Z]/g,"X");
 		
 	}
 	phraseClicked()
@@ -77,6 +84,9 @@ export default class PhraseShower extends Component {
 		sanitize = sanitize.replace(/ù/g,"u");
 		sanitize = sanitize.replace(/ô/g,"o");
 		sanitize = sanitize.replace(/\s/g,"");
+		sanitize = sanitize.replace(/-/g,"");
+		sanitize = sanitize.replace(/,/g,"");
+		sanitize = sanitize.replace(/\./g,"");
 		return sanitize;
 	}
 

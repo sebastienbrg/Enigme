@@ -3,7 +3,11 @@ import TextField from 'material-ui/TextField';
 import Paper from 'material-ui/Paper';
 import {BottomNavigation, BottomNavigationItem} from 'material-ui/BottomNavigation';
 import enigmeStore from './EnigmeStore.js';
-import {orange500, green500} from 'material-ui/styles/colors';
+import {orange500, green500, red500} from 'material-ui/styles/colors';
+import {GridList, GridTile} from 'material-ui/GridList';
+import Motorcycle from 'material-ui/svg-icons/action/motorcycle'
+import GenIcons from './generatedIcons'
+import ActionFlightTakeoff from 'material-ui/svg-icons/action/flight-takeoff';
 
 
 export default class EnigmePresenter extends Component {
@@ -31,7 +35,7 @@ export default class EnigmePresenter extends Component {
 	  	}
 	  	
 	  	let enigme = enigmeStore.currentEnigme;
-	  	console.log("setting enigme", enigme)
+	  	//console.log("setting enigme", enigme)
 	  	let resp = "";
 	  	let errorText = "";
 	  	let errorStyle = { };
@@ -45,7 +49,7 @@ export default class EnigmePresenter extends Component {
 	  }
 	  handleChange(e)
 	  {
-	  	console.log("Recieved a change ", e.target.value);
+	  	//console.log("Recieved a change ", e.target.value);
 	  	let errorStyle = {};
 	  	let errorText = "";
 	  	const won = (this.state.enigme.won || e.target.value === this.state.enigme.response);
@@ -61,6 +65,98 @@ export default class EnigmePresenter extends Component {
 	  	}
 	  	this.setState({resp: e.target.value, errorStyle, errorText});
 	  }
+	  getContent()
+	  {
+	  	if(this.state.enigme.name === "Codicone")
+	  	{
+	  		const aim = ["un=1", "un+un=deux", "deux+deux=quatre","quatre+un=cinq","quart*cinq=vingt", "dix*dix*dix=mille", " ","divulguer=?"];
+	  		const contents = aim.map((line, indexL) => {
+	  			const content = line.split("").map((letter, index) => {
+  					switch(letter)
+  					{
+  						case "+" :
+  						case "=" :
+  						case "?" :
+  						case "(" :
+  						case ")" :
+  						case " " :
+  						case "1" :
+  						case "*" :
+   						return (<span style={{margin: 10}} key={index}>{letter}</span>);
+  						default : return GenIcons.getElement(letter.charCodeAt(0)-97, index); 
+  					}
+	  			})
+	  			let style = null;
+	  			if(indexL === (aim.length -1))
+	  				style={marginTop:20};
+	  			return (<div style={style} key={indexL}>{content}</div>);
+	  		});
+	  		return contents;/*
+	  		const bla = GenIcons.getElement(1); 
+	  		return (<div>
+	  			{bla}
+	  			bloubloub
+	  			<Motorcycle color={orange500} />
+	  			<ActionFlightTakeoff  color={red500} />
+	  			</div>)*/
+	  	}
+	  	const photos =this.state.enigme.photos; 
+	  	if(photos)
+	  	{
+	  		if(Array.isArray( photos))
+	  		{
+		  		const styles = {
+				  root: {
+				  	marginTop : 25,
+				  	marginBottom: 25,
+				    display: 'flex',
+				    flexWrap: 'wrap',
+				    justifyContent: 'space-around',
+				  },
+				  gridList: {
+				    display: 'flex',
+				    flexWrap: 'nowrap',
+				    overflowX: 'auto',
+				  }
+				};
+	  			const tiles =this.state.enigme.photos.map((photo, index) => {
+	  				return (
+	  					<GridTile key={index}>
+	  				 	<img src={ ("./res/" + photo)} />
+	        			</GridTile>
+	        			
+	        		);
+	  			}); 
+		  		return (<div style={styles.root}> 
+		  			<GridList style={styles.gridList} cols={2.2}>
+		  			{tiles}
+		  			</GridList>
+		  			</div>);
+	  		}
+	  		else
+	  		{
+	  			return <img src={("./res/"+photos)} />
+	  		}
+	  	}
+	  	else
+	  	{
+	  		const content = this.state.enigme.content;
+	  		const styleText = { height: "70%"}
+	  		if(Array.isArray(content))
+	  		{
+  				return (<div style={styleText}>
+							{content.map((line) => { return (<p> {line} </p>);})}
+				</div>);
+	  		}
+	  		else
+	  		{
+		  		return (<div style={styleText}>
+							<p> {content} </p>
+				</div>);
+	  			
+	  		}
+	  	}
+	  }
 
 	render() {
 		const style = {
@@ -71,20 +167,18 @@ export default class EnigmePresenter extends Component {
   padding:"2% 5%",
   textAlign: 'left',
   display: this.state.display};
-  const styleTitle = { height: "10%"}
-  const styleText = { height: "70%"}
+  const styleTitle = { minHeight: "10%"}
+  
   
   const {title, content, response, won} = this.state.enigme;
-  console.log(this.state.enigme);
+  //console.log(this.state.enigme);
 		return (
 			<div>
 				<Paper style={style} zDepth={1} rounded={false}>
 					<div  style={styleTitle}>
 						<h1> {title} </h1>
 					</div>
-					<div style={styleText}>
-						<p> {content} </p>
-					</div>
+					{this.getContent()}
 					<div>
 					<TextField 
 					id= "bla"

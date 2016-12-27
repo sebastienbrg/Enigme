@@ -19,7 +19,7 @@ module.exports = {
   },
   output: {
     path: __dirname,
-    filename: "main.min.js"
+    filename: "enigme.js"
   },
   plugins: debug ? [] : [
     new webpack.optimize.DedupePlugin(),

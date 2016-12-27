@@ -73,7 +73,7 @@ export default class LetterList extends Component {
           		</FloatingActionButton>
           )	
 		});
-		const style ={ width:"80%", marginLeft: 270, position:"absolute", bottom:15, padding:10};
+		const style ={ width:"75%", marginLeft: 270, position:"absolute", bottom:15, padding:10};
 		return (
 			<Paper style={style}>
 			

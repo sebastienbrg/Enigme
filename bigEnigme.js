@@ -32,10 +32,12 @@ export default class BigEnigme extends Component {
 		const style = {
 			  height: "70%",
 			  width: "70%",
-			  marginTop:"5%",
-			  marginLeft: 270,
+			  marginTop:"0",
+			  marginLeft: 260,
 			  padding:"2% 5%",
+			  paddingTop:0,
 			  textAlign: 'left',
+			  overflow:"auto",
 			  display: this.state.display};
 		return (
 			<div id="bla" style={style}> 
