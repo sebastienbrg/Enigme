@@ -15,7 +15,7 @@ export default class PhraseShower extends Component {
 
 	isValidInput(inputPhrase)
 	{
-		let lettersAvailable = this.props.phrase.replace(/\s/g,"").toLowerCase().split("");
+		let lettersAvailable = this.sanitize(this.props.phrase).split("");
 		console.log("lettersAvailable",lettersAvailable)
 		return inputPhrase.split("").every((letter) => {
 			const index = lettersAvailable.indexOf(letter);
@@ -87,6 +87,8 @@ export default class PhraseShower extends Component {
 		sanitize = sanitize.replace(/-/g,"");
 		sanitize = sanitize.replace(/,/g,"");
 		sanitize = sanitize.replace(/\./g,"");
+		sanitize = sanitize.replace(/ï/g,"i");
+		sanitize = sanitize.replace(/î/g,"i");
 		return sanitize;
 	}
 
@@ -95,7 +97,7 @@ export default class PhraseShower extends Component {
 			const phrase = this.props.phrase;
 			console.log("rendering " + phrase);
 			const Hintext = this.state.won?"":"Ma réponse";
-			const floatingLabelText = this.state.won? "": this.getPhraseMasked(phrase);
+			const floatingLabelText = this.state.won? "": this.getPhraseMasked(phrase.replace(/à/g,"a"));
 			const inputStyle = this.state.won?{color:"green"}:{}
 			return (<TextField 
 				id= {phrase}

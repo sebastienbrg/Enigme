@@ -2,13 +2,13 @@
 
 const cyphPhrases = [
     "368bda94246b35663f5cf741",
-    "088b9486287f7f647041f104e6",
+    "088b9486287f7f647d41f104e6",
     "0e8fda8628746a",
-    "05cec795286b7d30384cf11ff7f0",
+    "a74e9483247862757041e118e0e60f",
     "109cd19e357436",
     "318098d033647d30344c",
     "088f94802078603c",
-    "039cd19e2e7374757e"
+    "239cd19e2e7374757e"
 ]
 let enigmes = [
     {
@@ -28,12 +28,9 @@ let enigmes = [
         "name": "Complet",
         "title": "Sur son 31",
         "content": [
-            "Pantalon droit",
+            "Pantalon",
             "Gilet",
-            "Chemise",
-            "Cravate",
-            "Pochette",
-            "Chapeau"
+            "..."
         ],
         "response": "128bc7842e7f",
         "won": false,
@@ -47,7 +44,7 @@ let enigmes = [
             "Mon premier est dééétendu,",
             "Mon second connait un grand succès,",
             " ",
-            "Mon tout est juste au dessus."
+            "Mon tout est au dessus."
         ],
         "response": "1e8bda993579",
         "won": false,
@@ -62,7 +59,7 @@ let enigmes = [
         "index": 3
     },
     {
-        "name": "Codicone",
+        "name": "Codicône",
         "title": "Ca balance",
         "content": "Pas encore fait",
         "response": "0087c2852d766d7522",
@@ -82,7 +79,7 @@ let enigmes = [
         "title": "Il s'est fait berner",
         "content": [
             "Mais quelle bavarde cette pipelette ! Incroyable, elle a réussi à le voler tout en continuant à déblatérer bruyamment ...",
-            "Puis tu as vu l'anneau en question !? C'est de l'or, le profil est bien régulier et rond. Je peux t'assurer que c'est pas un demi, ni un parisien, c'est un pur!"
+            "Puis tu as vu l'anneau en question !? C'est de l'or, le profil est bien régulier et rond. Je peux t'assurer que ce n'est pas un demi, ni un parisien, c'est un pur!"
         ],
         "response": "1487d3952e7f",
         "won": false,
@@ -120,7 +117,9 @@ let enigmes = [
     {
         "name": "Ibérique",
         "title": "Famoso por el caballo, el flamenco, el motociclismo y esto",
-        "content": "Xe zuiz un xuz de raizin blanc du zud.",
+        "content": [
+            "Xe zuiz un xuz de raizin blanc du zud."
+        ],
         "response": "0e8bc6953b",
         "won": false,
         "index": 9
@@ -136,6 +135,7 @@ let enigmes = [
             "Splendid - 15-03",
             "Krakatoa 17-03",
             "Olympia - 22-03",
+            "Oasis - 30-03",
             "Normandy 31-03"
         ],
         "response": "0a8fdd8624",

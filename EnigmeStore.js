@@ -54,8 +54,12 @@ class EnigmeStore extends EventEmitter {
 	{
 		this.currentEnigme.won = true;
 		this.emit("WON_LETTERS_CHANGED");
-		this.emit("CURRENT_ENIGME_CHANGED");
 		this.saveToStorage();
+		if(this.allWon())
+		{
+			this.setCurrentEnigme({name:"bigEnigme"});
+		}
+		this.emit("CURRENT_ENIGME_CHANGED");
 	}
 	
 	allWon()
@@ -83,13 +87,33 @@ class EnigmeStore extends EventEmitter {
 	{
 		return this.enigmes[0];
 	}
+	sanitize(phrase)
+	{
+		let sanitize = phrase.toLowerCase();
+		sanitize = sanitize.replace(/é/g,"e");
+		sanitize = sanitize.replace(/è/g,"e");
+		sanitize = sanitize.replace(/ë/g,"e");
+		sanitize = sanitize.replace(/â/g,"a");
+		sanitize = sanitize.replace(/à/g,"a");
+		sanitize = sanitize.replace(/ç/g,"c");
+		sanitize = sanitize.replace(/ù/g,"u");
+		sanitize = sanitize.replace(/ô/g,"o");
+		sanitize = sanitize.replace(/\s/g,"");
+		sanitize = sanitize.replace(/-/g,"");
+		sanitize = sanitize.replace(/,/g,"");
+		sanitize = sanitize.replace(/\./g,"");
+		sanitize = sanitize.replace(/ï/g,"i");
+		sanitize = sanitize.replace(/î/g,"i");
+		return sanitize;
+	}
+
 	getWonLetters()
 	{
 		let letters = []
 		this.enigmes.forEach( (enigme) => {
 			if(enigme.won)
 			{
-				letters = letters.concat(enigme.response.replace(/\s/g,"").split(""));
+				letters = letters.concat(this.sanitize(enigme.response).split(""));
 			}
 		})
 		return letters;

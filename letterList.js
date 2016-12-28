@@ -29,11 +29,29 @@ export default class LetterList extends Component {
 	{
 		this.setState({letters : enigmeStore.getWonLetters().sort()})
 	}
-
+	sanitize(phrase)
+	{
+		let sanitize = phrase.toLowerCase();
+		sanitize = sanitize.replace(/é/g,"e");
+		sanitize = sanitize.replace(/è/g,"e");
+		sanitize = sanitize.replace(/ë/g,"e");
+		sanitize = sanitize.replace(/â/g,"a");
+		sanitize = sanitize.replace(/à/g,"a");
+		sanitize = sanitize.replace(/ç/g,"c");
+		sanitize = sanitize.replace(/ù/g,"u");
+		sanitize = sanitize.replace(/ô/g,"o");
+		sanitize = sanitize.replace(/\s/g,"");
+		sanitize = sanitize.replace(/-/g,"");
+		sanitize = sanitize.replace(/,/g,"");
+		sanitize = sanitize.replace(/\./g,"");
+		sanitize = sanitize.replace(/ï/g,"i");
+		sanitize = sanitize.replace(/î/g,"i");
+		return sanitize;
+	}
 	updateLetterAppearence()	
 	{
-		let wonPhrasesLetters = enigmeStore.wonPhrases.replace(/\s/g,"").split("");
-		let currentPhraseLetters = enigmeStore.currentPhrase.replace(/\s/g,"").split("");
+		let wonPhrasesLetters = this.sanitize(enigmeStore.wonPhrases).split("");
+		let currentPhraseLetters = this.sanitize(enigmeStore.currentPhrase).split("");
 		let letterStatuses = [];
 		this.state.letters.forEach((letter, index) =>{	
 			if(wonPhrasesLetters.indexOf(letter) >= 0)

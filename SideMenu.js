@@ -67,7 +67,9 @@ export default class SideMenu extends React.Component {
 
   render() {
     let list = this.getListContent();
-    
+    let gsEn = null;
+    if(enigmeStore.allWon())
+      gsEn = this.elementClicked.bind(this, {name:"bigEnigme"})
     return (
         <Drawer          
           docked={true}
@@ -81,9 +83,10 @@ export default class SideMenu extends React.Component {
               primaryText="Grosse enigme"
               initiallyOpen={true}
               key="Grosse enigme"
+              disabled={true}
               primaryTogglesNestedList={true}
               leftIcon = {(this.state.showBigEnigme) ? <CurrentIcon/> : null}
-              onClick={this.elementClicked.bind(this, {name:"bigEnigme"})}
+              onClick={gsEn}
               />
         </Drawer>
       

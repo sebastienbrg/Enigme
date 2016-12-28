@@ -3,9 +3,9 @@ const phrasesInit = ["rendez vous le vingt huit",
  "janvier a seize heures",
  "trente un rue de",
  "la paix grenoble"];
-const phrases = ["Rendez-vous,", "le vingt huit",
- "janvier", "a seize heures",
- "trente.","Un, rue de", "la paix,", "grenoble."]
+const phrases = ["Rendez-vous,", "le vingt-huit",
+ "janvier", "à seize heures",
+ "trente.","Un, rue de", "la paix,", "Grenoble."]
 exports.phrases = phrases;
 
  const enigmes = words.map((word, index) => {
@@ -33,7 +33,7 @@ exports.enigmes = [
     {
         "name": "Complet",
         "title": "Sur son 31",
-        "content": ["Pantalon droit","Gilet", "Chemise", "Cravate", "Pochette", "Chapeau"],
+        "content": ["Pantalon","Gilet", "..."],
         "response": "veston",
         "won": false,
         "index": 1
@@ -41,7 +41,7 @@ exports.enigmes = [
     {
         "name": "Apothéose",
         "title": "Apothéose",
-        "content": [" ", "Mon premier est dééétendu,", "Mon second connait un grand succès,"," ", "Mon tout est juste au dessus."],
+        "content": [" ", "Mon premier est dééétendu,", "Mon second connait un grand succès,"," ", "Mon tout est au dessus."],
         "response": "zenith",
         "won": false,
         "index": 2
@@ -55,7 +55,7 @@ exports.enigmes = [
         "index": 3
     },
     {
-        "name": "Codicone",
+        "name": "Codicône",
         "title": "Ca balance",
         "content": "Pas encore fait",
         "response": "divulguer",
@@ -74,7 +74,7 @@ exports.enigmes = [
         "name": "En deux",
         "title": "Il s'est fait berner",
         "content": ["Mais quelle bavarde cette pipelette ! Incroyable, elle a réussi à le voler tout en continuant à déblatérer bruyamment ...",
-"Puis tu as vu l'anneau en question !? C'est de l'or, le profil est bien régulier et rond. Je peux t'assurer que c'est pas un demi, ni un parisien, c'est un pur!"],
+"Puis tu as vu l'anneau en question !? C'est de l'or, le profil est bien régulier et rond. Je peux t'assurer que ce n'est pas un demi, ni un parisien, c'est un pur!"],
         "response": "pigeon",
         "won": false,
         "index": 6
@@ -99,7 +99,7 @@ exports.enigmes = [
     {
         "name": "Ibérique",
         "title": "Famoso por el caballo, el flamenco, el motociclismo y esto",
-        "content": "Xe zuiz un xuz de raizin blanc du zud.",
+        "content": ["Xe zuiz un xuz de raizin blanc du zud."],
         "response": "jerez",
         "won": false,
         "index": 9
@@ -107,7 +107,7 @@ exports.enigmes = [
     {
         "name": "Electro-pop-rock",
         "title": "Sans les nouveaux batteurs",
-        "content": ["Summum - 03-03", "Plan 04-03", "Big Band Café - 09-03", "Echonova 10-03", "Splendid - 15-03", "Krakatoa 17-03", "Olympia - 22-03", "Normandy 31-03"],
+        "content": ["Summum - 03-03", "Plan 04-03", "Big Band Café - 09-03", "Echonova 10-03", "Splendid - 15-03", "Krakatoa 17-03", "Olympia - 22-03", "Oasis - 30-03", "Normandy 31-03"],
         "response": "naive",
         "won": false,
         "index": 10

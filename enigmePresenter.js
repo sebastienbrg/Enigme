@@ -47,12 +47,31 @@ export default class EnigmePresenter extends Component {
 	  	}
   		this.setState({enigme, resp, errorText, errorStyle, display:  'inline-block'});
 	  }
+	  sanitize(phrase)
+	{
+		let sanitize = phrase.toLowerCase();
+		sanitize = sanitize.replace(/é/g,"e");
+		sanitize = sanitize.replace(/è/g,"e");
+		sanitize = sanitize.replace(/ë/g,"e");
+		sanitize = sanitize.replace(/â/g,"a");
+		sanitize = sanitize.replace(/à/g,"a");
+		sanitize = sanitize.replace(/ç/g,"c");
+		sanitize = sanitize.replace(/ù/g,"u");
+		sanitize = sanitize.replace(/ô/g,"o");
+		sanitize = sanitize.replace(/\s/g,"");
+		sanitize = sanitize.replace(/-/g,"");
+		sanitize = sanitize.replace(/,/g,"");
+		sanitize = sanitize.replace(/\./g,"");
+		sanitize = sanitize.replace(/ï/g,"i");
+		sanitize = sanitize.replace(/î/g,"i");
+		return sanitize;
+	}
 	  handleChange(e)
 	  {
 	  	//console.log("Recieved a change ", e.target.value);
 	  	let errorStyle = {};
 	  	let errorText = "";
-	  	const won = (this.state.enigme.won || e.target.value === this.state.enigme.response);
+	  	const won = (this.state.enigme.won || this.sanitize(e.target.value) === this.sanitize(this.state.enigme.response));
 	  	if(won && !this.state.enigme.won)
   		{
   			enigmeStore.enigmeWon();
@@ -67,9 +86,9 @@ export default class EnigmePresenter extends Component {
 	  }
 	  getContent()
 	  {
-	  	if(this.state.enigme.name === "Codicone")
+	  	if(this.state.enigme.name === "Codicône")
 	  	{
-	  		const aim = ["un=1", "un+un=deux", "deux+deux=quatre","quatre+un=cinq","quart*cinq=vingt", "dix*dix*dix=mille", " ","divulguer=?"];
+	  		const aim = ["un=1", "un+un=deux", "deux+deux=quatre","quatre+un=cinq","quatre*cinq=vingt", "dix*dix*dix=mille", " ","divulguer=?"];
 	  		const contents = aim.map((line, indexL) => {
 	  			const content = line.split("").map((letter, index) => {
   					switch(letter)
@@ -141,7 +160,7 @@ export default class EnigmePresenter extends Component {
 	  	else
 	  	{
 	  		const content = this.state.enigme.content;
-	  		const styleText = { height: "70%"}
+	  		const styleText = { minHeight: "60%"}
 	  		if(Array.isArray(content))
 	  		{
   				return (<div style={styleText}>
@@ -162,7 +181,7 @@ export default class EnigmePresenter extends Component {
 		const style = {
   height: "70%",
   width: "70%",
-  marginTop:"5%",
+  marginTop:"0%",
   marginLeft: 270,
   padding:"2% 5%",
   textAlign: 'left',
